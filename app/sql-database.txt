@@ -1,0 +1,89 @@
+use db_ticket; 
+CREATE TABLE tbl_ticket (
+    ticket_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    piority VARCHAR(100),
+    project VARCHAR(100),
+    activity VARCHAR(500),
+    type VARCHAR(500),
+    status VARCHAR(500),
+    task_by VARCHAR(500),
+    open_by VARCHAR(500),
+    root_cause TEXT,
+    title TEXT,
+    solution TEXT
+);
+
+
+
+use db_ticket;
+CREATE TABLE tbl_responses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_response varchar(100),
+    response_text TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+use db_ticket; 
+ALTER TABLE tbl_ticket 
+ADD created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
+use db_ticket; 
+ALTER TABLE tbl_responses 
+ADD ticket_id BIGINT;
+
+
+
+use db_ticket;
+CREATE TABLE tbl_user (
+    user_id INT(11) NOT NULL AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL, 
+    name varchar(100), 
+    lastname varchar(200),
+    email VARCHAR(100) NOT NULL UNIQUE,
+    role ENUM('admin', 'user', 'moderator') NOT NULL DEFAULT 'user', -- กำหนด role
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`user_id`)
+) ;
+
+
+
+use db_ticket; 
+ALTER TABLE `tbl_user`
+ADD COLUMN `profile_image` LONGBLOB NULL;
+
+
+
+ALTER TABLE `tbl_ticket`
+ADD COLUMN `image` LONGBLOB NULL;
+
+ALTER TABLE `tbl_ticket`
+ADD COLUMN images VARCHAR(255) 
+
+
+ALTER TABLE `tbl_response`
+ADD COLUMN user_id INT(11); 
+
+
+
+CREATE TABLE tbl_response_images (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    response_id INT NOT NULL,
+    image_data LONGBLOB NOT NULL,  -- เก็บไฟล์ภาพ
+    image_type VARCHAR(50) NOT NULL, -- ประเภทของภาพ (เช่น image/png, image/jpeg)
+    comment TEXT, -- คอมเมนต์เกี่ยวกับภาพ
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  );
+
+
+use db_ticket;
+ALTER TABLE tbl_responses
+ADD COLUMN img_id INT;
+
+
+ALTER TABLE `db_ticket`.`tbl_responses` 
+DROP COLUMN `img_id`;
+
+ALTER TABLE tbl_ticket
+ADD COLUMN closed_date TIMESTAMP NULL DEFAULT NULL;
