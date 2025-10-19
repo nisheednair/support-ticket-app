@@ -3,10 +3,10 @@ include('check_session.php');
 ?>
 <?php
 // Connect to the database (use MySQLi or PDO as you prefer).
-$servername = "127.0.0.1";;
-$username = "mysql";
-$password = "Mysql$123";
-$dbname = "db_ticket";
+$servername = "localhost";;
+$username = "db_tickets_user";
+$password = "Mysql$123456789";
+$dbname = "db_tickets";
 
 // Create a connection
 $conn = new mysqli($servername, $username, $password, $dbname);
